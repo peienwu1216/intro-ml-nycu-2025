@@ -50,6 +50,7 @@ checkpoints/
 
 # Ignore generated data lists from hw1
 hw1_dataset_split/*.txt
+hw1_dataset_split/docs
 
 # Ignore compiled documents like PDFs
 *.pdf
