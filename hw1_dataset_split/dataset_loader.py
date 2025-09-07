@@ -1,6 +1,8 @@
 import os
 import random
 
+output_dir = 'outputs'
+
 def load_and_split_dataset(base_dir, train_ratio=0.7, val_ratio=0.15):
     
     all_files_by_label = {}
@@ -47,9 +49,9 @@ def load_and_split_dataset(base_dir, train_ratio=0.7, val_ratio=0.15):
             for img_path, label in data_list:
                 f.write(f"{img_path.replace(os.sep, '/')} {label}\n")
 
-    save_split('train_list.txt', train_list)
-    save_split('val_list.txt', val_list)
-    save_split('test_list.txt', test_list)
+    save_split(os.path.join(output_dir, 'train_list.txt'), train_list)
+    save_split(os.path.join(output_dir, 'val_list.txt'), val_list)
+    save_split(os.path.join(output_dir, 'test_list.txt'), test_list)
 
     # 4. Output results in terminal
     print("\nDataset splitting complete.")

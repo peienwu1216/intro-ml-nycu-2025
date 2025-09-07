@@ -48,9 +48,11 @@ checkpoints/
 
 # --- Homework Specific Ignores ---
 
-# Ignore generated data lists from hw1
-hw1_dataset_split/*.txt
-hw1_dataset_split/docs
+# Ignore generated output folders for homework
+hw1_dataset_split/outputs/
+hw1_dataset_split/submission/
+hw1_dataset_split/docs/
 
 # Ignore compiled documents like PDFs
 *.pdf
+*.docs
