@@ -45,3 +45,11 @@ checkpoints/
 *.pt
 *.pth
 *.onnx
+
+# --- Homework Specific Ignores ---
+
+# Ignore generated data lists from hw1
+hw1_dataset_split/*.txt
+
+# Ignore compiled documents like PDFs
+*.pdf
