@@ -1,6 +1,6 @@
 # HW1 — Dataset Splitting & Data Leakage
 
-> 注意：Place the MNIST dataset under data/MNIST/ before running split_mnist.py.
+> 注意：Place the MNIST dataset under ./data/MNIST/ before running split_mnist.py.
 
 專案中的 `dataset_loader.py` 目標在於正確地將 MNIST 資料集分割為訓練、驗證和測試集，並特別強調避免 Data Leakage。
 
