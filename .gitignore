@@ -54,5 +54,4 @@ hw1_dataset_split/submission/
 hw1_dataset_split/docs/
 
 # Ignore compiled documents like PDFs
-*.pdf
 *.docs
