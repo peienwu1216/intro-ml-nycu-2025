@@ -1,7 +1,10 @@
 # intro-ml-nycu-2025
 
+好玩共編區：
+https://hackmd.io/@ZxrF4aU8SHaTG2JAJ5ZasQ/SJjDMBzaxl
+期中報告：
+https://hackmd.io/@s1ash/SJNrV6w0le
 Course repo for **CSCS20024 — Introduction to Machine Learning (Fall 2025, NYCU)**  
-Instructor: Yu-Chih (Berrie) Chen · Class Time: Tue 13:20–16:20 · Room: EC022
 
 > This repository contains homework solutions, notes, and the final project for the course.
 
