@@ -2,8 +2,10 @@
 
 好玩共編區：
 https://hackmd.io/@ZxrF4aU8SHaTG2JAJ5ZasQ/SJjDMBzaxl
+
 期中報告：
 https://hackmd.io/@s1ash/SJNrV6w0le
+
 Course repo for **CSCS20024 — Introduction to Machine Learning (Fall 2025, NYCU)**  
 
 > This repository contains homework solutions, notes, and the final project for the course.
