@@ -16,7 +16,6 @@ __pycache__/
 *.pkl
 *.h5
 *.ckpt
-loss_curve.png
 *.log
 
 # Jupyter Notebook
