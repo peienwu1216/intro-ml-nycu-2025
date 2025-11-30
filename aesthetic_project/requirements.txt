@@ -5,4 +5,6 @@ tqdm
 matplotlib
 Pillow
 pandas
-
+grad-cam
+opencv-python
+gradio

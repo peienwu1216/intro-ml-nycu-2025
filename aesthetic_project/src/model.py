@@ -8,7 +8,13 @@ class AestheticViT(nn.Module):
         
         # 載入預訓練的 ViT
         # num_classes=0 returns the pooled features (representation)
-        self.backbone = timm.create_model(model_name, pretrained=pretrained, num_classes=0)
+        self.backbone = timm.create_model(
+            model_name, 
+            pretrained=pretrained, 
+            num_classes=0,
+            drop_rate=0.1,
+            attn_drop_rate=0.1
+        )
         
         # 取得特徵維度 (Tiny ViT 通常是 192, Small 是 384, Base 是 768)
         embed_dim = self.backbone.num_features

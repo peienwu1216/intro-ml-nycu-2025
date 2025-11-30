@@ -26,7 +26,8 @@ def train():
 
     # 驗證集只做 Resize & Normalize
     val_transform = transforms.Compose([
-        transforms.Resize((224, 224)),
+        transforms.Resize((256, 256)),
+        transforms.CenterCrop((224, 224)),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ])
@@ -55,7 +56,7 @@ def train():
     print(f"Initializing model {Config.MODEL_NAME} on {Config.DEVICE}...")
     model = AestheticViT(model_name=Config.MODEL_NAME).to(Config.DEVICE)
     criterion = nn.MSELoss() # 回歸問題使用均方誤差
-    optimizer = optim.AdamW(model.parameters(), lr=Config.LEARNING_RATE, weight_decay=1e-4)
+    optimizer = optim.AdamW(model.parameters(), lr=Config.LEARNING_RATE, weight_decay=1e-3)
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', patience=2, factor=0.5)
     
     # 4. 訓練迴圈

@@ -1,9 +1,7 @@
 import torch
 
 class Config:
-    # 資料路徑 (請修改為你實際的檔案路徑)
-    # 注意：請確認這裡的檔名與你解壓縮後的實際檔名一致 (可能是 imgListFile.txt)
-    # 資料路徑（使用相對路徑，從 src/ 目錄出發）
+    # 資料路徑
     IMAGE_DIR = "../data/AADB/datasetImages_warp256"
     LABEL_DIR = "../data/AADB/imgListFiles_label"
     
