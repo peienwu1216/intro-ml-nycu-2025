@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 from torchvision import transforms
-from model import AestheticViT
+from model import AestheticViT, AestheticSwin
 from config import Config
 import io
 import os
@@ -21,12 +21,25 @@ device = torch.device("cpu") # Demo 用 CPU 即可
 
 # Check if model exists
 if not os.path.exists(MODEL_PATH):
-    raise FileNotFoundError(f"Model not found at {MODEL_PATH}")
+    # Fallback to swin model name if vit not found, or generic name
+    MODEL_PATH = os.path.join(BASE_DIR, "aesthetic_vit_model.pth") 
+    if not os.path.exists(MODEL_PATH):
+         # Try current default model name if different
+         pass
 
-model = AestheticViT(model_name=Config.MODEL_NAME, pretrained=False)
+# Initialize model based on Config
+if 'swin' in Config.MODEL_NAME:
+    model = AestheticSwin(model_name=Config.MODEL_NAME, pretrained=False)
+else:
+    model = AestheticViT(model_name=Config.MODEL_NAME, pretrained=False)
+
 # Load with weights_only=True for security if possible, but for now stick to default or safe usage
-state_dict = torch.load(MODEL_PATH, map_location=device)
-model.load_state_dict(state_dict)
+if os.path.exists(MODEL_PATH):
+    state_dict = torch.load(MODEL_PATH, map_location=device)
+    model.load_state_dict(state_dict)
+else:
+    print(f"Warning: Model file {MODEL_PATH} not found. Using random weights.")
+
 model.to(device)
 model.eval()
 
@@ -39,7 +52,7 @@ transform = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
 
-# 定義 5 個維度的建議模板
+# 定義 4 個維度的建議模板 (移除 Post-proc)
 ADVICE_DB = {
     "Composition": {
         "low": "⚠️ 構圖稍顯雜亂。建議嘗試「三分法」將主體放在交叉點，或尋找畫面中的引導線來突出重點。",
@@ -56,19 +69,15 @@ ADVICE_DB = {
     "Originality": {
         "low": "💡 題材較為常見。試著改變拍攝視角（如低角度或俯拍），或尋找獨特的時間點來增加故事性。",
         "high": "✅ 非常獨特的視角！這張照片展現了與眾不同的創意與故事性。"
-    },
-    "Post-proc": {
-        "low": "⚠️ 畫面可能過度平淡或修圖痕跡過重。建議適度調整對比度與飽和度即可。",
-        "high": "✅ 後製處理恰到好處，風格統一且沒有破壞畫質。"
     }
 }
 
 def generate_diagnosis(sub_scores):
     """
     根據子分數生成診斷報告
-    sub_scores 順序: [Composition, Light, Focus, Post-proc, Originality]
+    sub_scores 順序: [Composition, Light, Focus, Originality]
     """
-    labels = ['Composition', 'Light', 'Focus', 'Post-proc', 'Originality']
+    labels = ['Composition', 'Light', 'Focus', 'Originality']
     
     # 找出最高分與最低分的項目
     max_idx = np.argmax(sub_scores)
@@ -113,7 +122,7 @@ def predict(image):
     # 解析分數
     ias = outputs[0]
     sub_scores = outputs[1:]
-    labels = ['Composition', 'Light', 'Focus', 'Post-proc', 'Originality']
+    labels = ['Composition', 'Light', 'Focus', 'Originality']
     
     # --- Analysis: Color Palette Only ---
     dominant_colors = get_dominant_colors(image)
@@ -171,7 +180,7 @@ iface = gr.Interface(
         gr.Textbox(label="AI Diagnosis & Suggestions", lines=10)
     ],
     title="📸 AI Aesthetic Scorer",
-    description="上傳照片，AI 將分析構圖、光線、清晰度等 5 大美學維度，並提供色彩與技術指標分析。",
+    description="上傳照片，AI 將分析構圖、光線、清晰度等 4 大美學維度，並提供色彩與技術指標分析。",
     examples=examples
 )
 

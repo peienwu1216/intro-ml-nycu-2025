@@ -62,17 +62,24 @@ class AADBDataset(Dataset):
                 continue
                 
             with open(file_path, 'r') as f:
-                for line in f:
+                for idx, line in enumerate(f):
                     parts = line.strip().split()
                     if len(parts) >= 2:
                         img_name = parts[0]
                         val = float(parts[1])
+                        
+                        # DEBUG: Check raw value range for the first few items
+                        if idx < 5:
+                             print(f"[DEBUG] Attribute {attr_key}, File {img_name}, Raw Value: {val}")
+
                         if img_name in self.image_data:
                             # Normalize attributes from [-1, 1] to [0, 1]
                             # Assumption based on AADB data format where attributes are -1 to 1
                             # Score is already 0-1
                             val = (val + 1.0) / 2.0
                             self.image_data[img_name][attr_key] = val
+
+
 
     def __len__(self):
         return len(self.filenames)
@@ -111,14 +118,10 @@ class AADBDataset(Dataset):
         # interesting_content
         score_O = attrs.get('content', 0.5)
         
-        # 5. Post-processing (P)
-        # Set as 0.5 constant (as per prompt instruction)
-        score_P = 0.5
-        
         # IAS (Total Score)
         raw_score = attrs.get('score', 0.5)
         
-        # Target Tensor: [Global, C, L, F, P, O]
-        targets = torch.tensor([raw_score, score_C, score_L, score_F, score_P, score_O], dtype=torch.float32)
+        # Target Tensor: [Global, C, L, F, O] (Removed Post-processing)
+        targets = torch.tensor([raw_score, score_C, score_L, score_F, score_O], dtype=torch.float32)
         
         return image, targets

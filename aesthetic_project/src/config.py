@@ -11,8 +11,9 @@ class Config:
     LEARNING_RATE = 1e-4
     
     # 模型參數
-    MODEL_NAME = 'vit_tiny_patch16_224' # 使用 Tiny ViT 確保在 Mac 上跑得快
-    NUM_CLASSES = 6 # 1個總分 + 5個子分數
+    # 改用 Swin Transformer Tiny 版本
+    MODEL_NAME = 'swin_tiny_patch4_window7_224' 
+    NUM_CLASSES = 5 # 1個總分 + 4個子分數 (移除 Post-processing)
     
     # 硬體加速
     DEVICE = torch.device("mps" if torch.backends.mps.is_available() else "cpu")

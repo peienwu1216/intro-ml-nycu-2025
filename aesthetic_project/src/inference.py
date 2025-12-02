@@ -6,7 +6,7 @@ import os
 import glob
 import matplotlib.pyplot as plt
 import numpy as np
-from model import AestheticViT
+from model import AestheticViT, AestheticSwin
 from config import Config
 
 # 設定中文字型 (如果有的話，或是使用英文標籤)
@@ -30,7 +30,7 @@ def predict(image_path, model, device):
     
     with torch.no_grad():
         outputs = model(image_tensor)
-        # Output order: [IAS, C, L, F, P, O]
+        # Output order: [IAS, C, L, F, O]
         scores = outputs.cpu().numpy()[0]
         
     return scores
@@ -105,8 +105,8 @@ def visualize_results(results):
     print(f"Saved IAS comparison chart to {save_path_ias}")
     
     # 2. Radar Chart for Average Attributes
-    # Attributes: C, L, F, P, O (indices 1-5)
-    labels = ['Composition (C)', 'Lighting (L)', 'Focus (F)', 'Post-proc (P)', 'Originality (O)']
+    # Attributes: C, L, F, O (indices 1-4)
+    labels = ['Composition (C)', 'Lighting (L)', 'Focus (F)', 'Originality (O)']
     
     avg_good_attrs = np.mean([r['good_scores'][1:] for r in results], axis=0)
     avg_bad_attrs = np.mean([r['bad_scores'][1:] for r in results], axis=0)
@@ -136,9 +136,9 @@ def visualize_results(results):
     print(f"Saved Attributes Radar chart to {save_path_radar}")
 
     # 3. Heatmap for Detailed Attributes per Image
-    # We want to show: Rows = Images, Cols = Attributes (C, L, F, P, O)
+    # We want to show: Rows = Images, Cols = Attributes (C, L, F, O)
     # Prepare data
-    labels = ['Composition (C)', 'Lighting (L)', 'Focus (F)', 'Post-proc (P)', 'Originality (O)']
+    labels = ['Composition (C)', 'Lighting (L)', 'Focus (F)', 'Originality (O)']
     row_labels = []
     data_matrix = []
     
@@ -184,17 +184,32 @@ def main():
     print(f"Using device: {device}")
     
     # Initialize model
-    model = AestheticViT(model_name='vit_tiny_patch16_224', pretrained=False)
+    if 'swin' in Config.MODEL_NAME:
+        model = AestheticSwin(model_name=Config.MODEL_NAME, pretrained=False)
+    else:
+        model = AestheticViT(model_name=Config.MODEL_NAME, pretrained=False)
     
     model_path = "aesthetic_vit_model.pth"
     if not os.path.exists(model_path):
         print(f"Model file not found at {model_path}")
         return
         
-    model.load_state_dict(torch.load(model_path, map_location=device))
-    model.to(device)
-    model.eval()
-    
+    try:
+        model.load_state_dict(torch.load(model_path, map_location=device))
+        model.to(device)
+        model.eval()
+    except RuntimeError as e:
+        print(f"Error loading model state dict: {e}")
+        print("Trying fallback to load state dict with strict=False (use with caution)...")
+        try:
+            model.load_state_dict(torch.load(model_path, map_location=device), strict=False)
+            model.to(device)
+            model.eval()
+            print("Loaded model with strict=False.")
+        except Exception as e2:
+            print(f"Failed to load model even with strict=False: {e2}")
+            return
+
     # Scan validation sets
     base_dir = os.path.dirname(os.path.dirname(__file__)) # aesthetic_project/
     validation_dir = os.path.join(base_dir, "validation")
@@ -219,8 +234,8 @@ def main():
                 "bad_scores": bad_scores
             })
             
-            print(f"  {s['set_name']} Good -> IAS: {good_scores[0]:.4f} | C: {good_scores[1]:.2f}, L: {good_scores[2]:.2f}, F: {good_scores[3]:.2f}, O: {good_scores[5]:.2f}")
-            print(f"  {s['set_name']} Bad  -> IAS: {bad_scores[0]:.4f} | C: {bad_scores[1]:.2f}, L: {bad_scores[2]:.2f}, F: {bad_scores[3]:.2f}, O: {bad_scores[5]:.2f}")
+            print(f"  {s['set_name']} Good -> IAS: {good_scores[0]:.4f} | C: {good_scores[1]:.2f}, L: {good_scores[2]:.2f}, F: {good_scores[3]:.2f}, O: {good_scores[4]:.2f}")
+            print(f"  {s['set_name']} Bad  -> IAS: {bad_scores[0]:.4f} | C: {bad_scores[1]:.2f}, L: {bad_scores[2]:.2f}, F: {bad_scores[3]:.2f}, O: {bad_scores[4]:.2f}")
             print("-" * 40)
             
     # Visualize
