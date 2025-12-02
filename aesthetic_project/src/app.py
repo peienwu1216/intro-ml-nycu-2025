@@ -19,13 +19,13 @@ MODEL_PATH = os.path.join(BASE_DIR, "aesthetic_vit_model.pth")
 
 device = torch.device("cpu") # Demo 用 CPU 即可
 
-# Check if model exists
+# Check if model exists, and try a meaningful fallback location
 if not os.path.exists(MODEL_PATH):
-    # Fallback to swin model name if vit not found, or generic name
-    MODEL_PATH = os.path.join(BASE_DIR, "aesthetic_vit_model.pth") 
-    if not os.path.exists(MODEL_PATH):
-         # Try current default model name if different
-         pass
+    # If the model was trained/saved from the project root instead of src/,
+    # it may live one level above BASE_DIR.
+    alt_path = os.path.join(os.path.dirname(BASE_DIR), "aesthetic_vit_model.pth")
+    if os.path.exists(alt_path):
+        MODEL_PATH = alt_path
 
 # Initialize model based on Config
 if 'swin' in Config.MODEL_NAME:
