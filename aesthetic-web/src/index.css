@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #ffffff;
+  --gray-100: #606060;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 4rem;
+}
+
+a {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+
+button {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  border: 0px solid transparent;
+  padding: 16px 20px;
+  font-size: 1em;
+  background-color: #646cff;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  color: white;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+.barlow-thin {
+  font-family: "Barlow", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.barlow-extralight {
+  font-family: "Barlow", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.barlow-light {
+  font-family: "Barlow", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.barlow-regular {
+  font-family: "Barlow", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.barlow-medium {
+  font-family: "Barlow", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.barlow-semibold {
+  font-family: "Barlow", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.barlow-bold {
+  font-family: "Barlow", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.barlow-extrabold {
+  font-family: "Barlow", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.barlow-black {
+  font-family: "Barlow", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.barlow-thin-italic {
+  font-family: "Barlow", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.barlow-extralight-italic {
+  font-family: "Barlow", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.barlow-light-italic {
+  font-family: "Barlow", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.barlow-regular-italic {
+  font-family: "Barlow", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.barlow-medium-italic {
+  font-family: "Barlow", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.barlow-semibold-italic {
+  font-family: "Barlow", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.barlow-bold-italic {
+  font-family: "Barlow", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.barlow-extrabold-italic {
+  font-family: "Barlow", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.barlow-black-italic {
+  font-family: "Barlow", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.hero-spacing {
+  margin: 200px 25px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column-reverse;
+  min-height: 100vh; 
+}
+
+.box1 {
+  flex: 1;
+  margin: 30px;
+  justify-content: center;
+  width: 100%;
+
+}
+
+.box2 {
+  flex: 1;
+  margin: 2rem;
+  justify-content: center;
+
+}
+
+img {
+  max-width: 100%;
+  /* justify-content: center; */
+}
+
+
+@media (min-width: 738px) {
+  .container {
+    flex-direction: row;
+  }
+  
+  .box1 {
+    flex: 1;
+    margin: auto 100px auto 0px;
+    
+  }
+
+  .box2 {
+    flex: 2;
+    margin: auto 50px auto 100px;
+  }
+
+  img {
+    max-width: 100%;
+    width: 500px;
+  }
+}
+
+
+.result-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.result-layout {
+    display: flex;
+    flex-wrap: wrap;       /* 讓小螢幕自動換行 */
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    gap: 40px;
+    min-height: 80vh;      /* 讓內容垂直置中時有個高度依據 */
+}
+
+.image-box {
+    flex: 1 1 400px;       /* 彈性寬度：縮放基礎 400px */
+    display: flex;
+    justify-content: center;
+}
+
+.uploaded-image {
+    max-width: 100%;
+    max-height: 600px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.score-box {
+    flex: 1 1 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
