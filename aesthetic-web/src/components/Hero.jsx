@@ -3,7 +3,7 @@ export default function Hero({ onUploadClick }) {
     <div className="container">
         <div className="box2">
            <h1 className="text-4xl font-bold" style={{ marginBottom: "0px" }}>
-             Free online aesthetic image rating.
+             Aesthetic image rating.
            </h1>
            <p className="text-gray-700 text-lg barlow-regular">
              Upload your image and get an instant aesthetic score. Our intelligent algorithm evaluates Composition, Lighting, Clarity, and Story.

@@ -52,11 +52,11 @@ button {
   border: 0px solid transparent;
   padding: 16px 20px;
   font-size: 1em;
-  background-color: #646cff;
   border-radius: 24px;
   cursor: pointer;
   transition: border-color 0.25s;
-  color: white;
+  color: #ffffff;
+  background-color: #646cff
 }
 button:hover {
   border-color: #646cff;
@@ -75,7 +75,7 @@ button:focus-visible {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: #a1a1a1;
   }
 }
 
