@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+:root {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #ffffff;
+  color: #1a1a1a;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: #000;
+  color: #fff;
+}
