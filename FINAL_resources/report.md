@@ -1,5 +1,8 @@
 # Image Aesthetic Assessment: Beyond the Eye of the Beholder
-## Final Project Report
+## Final Project Report: Saliency-Guided Feature Modulation for Composition-Aware
+
+## ABSTRACT
+Image Aesthetic Assessment (IAA) is a challenging task due to the inherent subjectivity and the complex interplay between photographic composition and semantic content. While visual saliency is known to be a critical factor in human aesthetic perception, existing deep learning approaches often struggle to effectively integrate saliency information, relying on naive fusion strategies such as concatenation that can introduce noise or fail to prioritize key regions. In this paper, we propose a unified framework that synergizes the efficiency of modern architectures with explicit attention mechanisms. We introduce a **Saliency-Guided Feature Modulation (SGFM)** module, which leverages saliency maps to learn spatial-wise affine transformations, dynamically recalibrating feature representations to highlight aesthetically significant elements. Furthermore, to address feature redundancy in subjective tasks, we incorporate a **Global Response Normalization (GRN)-Aware Attention Pooling** layer, which enforces channel-wise competition to extract the most discriminative compositional features. We treat the assessment as a Label Distribution Learning (LDL) problem to capture the diversity of human ratings. Extensive experiments on the Composition-aware Aesthetic Database (CADB) demonstrate the effectiveness of our approach, achieving a Spearman Rank Correlation Coefficient (SRCC) of 0.715 and outperforming strong baselines.
 
 ### 1. Dataset Description
 *   **Source**: CADB (Composition-aware Aesthetic Database).
