@@ -86,13 +86,10 @@ We implemented and compared four distinct phases of architecture evolution to so
 
 #### Phase 1: Baseline (SAMPNet / ResNet-50)
 
-
 *   **Architecture Details**:
     *   **Backbone**: **ResNet-50** (Pretrained on ImageNet).
     *   **Input**: RGB Image (224x224) + Saliency Map (56x56).
     *   **Feature Extraction**: Extracts features from the last convolutional layer (2048 channels).
-    
-    <img src="report_pics/SampNet_ResNet.png" width="450">
 *   **Data Flow**:
     1.  **Image Branch**: `Image -> ResNet-50 -> Feature Map (2048x7x7)`.
     2.  **Saliency Branch**: `Saliency Map -> MaxPool -> Downsampled Map (56x56)`.
@@ -152,9 +149,6 @@ We implemented and compared four distinct phases of architecture evolution to so
     *   **Backbone**: Swin-T.
     *   **Module**: **SAMP (Saliency-Aware Multi-Pattern)** Module.
     *   **Input**: RGB Image + Saliency Map.
-
-    <img src="report_pics/SwimT_CrossAtten.png" width="500">
-
 *   **Data Flow**:
     1.  **Layout Queries**: Defines 16 learnable queries representing different composition patterns (e.g., Rule of Thirds grid, Symmetry axis).
     2.  **Pattern Matching**:
@@ -184,13 +178,10 @@ We implemented and compared four distinct phases of architecture evolution to so
 
 #### Phase 4: Final Form (ConvNeXt V2)
 
-
 *   **Architecture Details**:
     *   **Backbone**: **ConvNeXt V2 Nano** (Pretrained).
     *   **Input**: RGB Image (384x384) + Saliency Map (384x384).
     *   **Modules**: SGFM + GRN-Aware Pooling.
-
-    <img src="report_pics/ConvNeXt_V2_Nano.png" width="500">
 *   **Data Flow**:
     1.  **Feature Extraction**: ConvNeXt V2 extracts multi-scale features (Stage 3: 320 dim, Stage 4: 640 dim).
     2.  **Adaptation**: 1x1 Conv projects features to **512 dim**.
